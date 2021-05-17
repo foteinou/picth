@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Test Map-Pitch</title>
+    <meta
+      name="viewport' content='initial-scale=1,maximum-scale=5,user-scalable=no"
+    />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="katerina/style.css" />
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="jquery.bpopup.min.js"></script>
+  <script>
+$( document ).ready(function() {
+    $('#popup_this').bPopup();
+});
+</script>
+    
+<script>
+var bleep = new Audio();
+  var bleep2 = new Audio();
+  var bleep3 = new Audio();
+  var bleep4 = new Audio();
+  var bleep5 = new Audio();
+  bleep.src = "360.mp3";
+  bleep2.src = "400.mp3";
+  bleep3.src = "440.mp3";
+  bleep4.src = "480.mp3";
+  bleep5.src = "520.mp3";
+  bleep.load();
+  bleep2.load();
+  bleep3.load();
+  bleep4.load();
+  bleep5.load();
+  
+function loadContent(num){
+   if (num==1){
+          bleep.play(); // Play button sound now
+        }
+        else if (num==2){
+          bleep2.play(); // Play button sound now
+        }
+        else if (num==3){
+          bleep3.play(); // Play button sound now
+        }
+        else if (num==4){
+          bleep4.play(); // Play button sound now
+        }
+   else if (num==5){
+          bleep5.play(); // Play button sound now
+        }
+}
+ 
+</script>
+<style > body {
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+h1 {font-family:"Garamond", serif;
+  font-size: 20px;
+  line-height: 20px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+h2 {font-family: "Garamond", serif;
+  font-size: 15px;
+  line-height: 14px;
+  margin-bottom: 1px;
+  padding: 5px;
+}
+h3 {font-family: "Times New Roman", serif;
+  margin: 0px;
+  font-size: 1.2em;
+  padding: 1px;
+}
+h4 {font-family: "Times New Roman", serif;
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 0px;
+  padding: 0px;
+}
+h5 {font-family: "Times New Roman", serif;
+ font-weight:bolder;
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 0px;
+  padding: 0px;
+}
+
+
+.map-overlay1 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 1);
+  margin-right: 20px;
+  font-family: Arial, sans-serif;
+  overflow: auto;
+  border-radius: 3px;
+  z-index: 1;
+}
+#console_pm {
+  position: absolute;
+  height:270px;
+  width: 250px;
+  left: 0.2%;
+  top: 2px;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
+     .map-overlay {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.9);
+      margin-right: 20px;
+      font-family: Arial, sans-serif;
+      overflow: auto;
+      border-radius: 3px;
+      z-index: 1; 
+    }
+
+.my-legend .legend-title {
+    text-align: left;
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 90%;
+    }
+  .my-legend .legend-scale ul {
+  margin:0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    }
+  .my-legend .legend-scale ul li {
+    display: block;
+    float: left;
+    width: 50px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 80%;
+    list-style: none;
+    }
+  .my-legend ul.legend-labels li span {
+    display: block;
+    float: left;
+    height: 15px;
+    width: 50px;
+    }
+
+  .my-legend a {
+    color: #777;
+    }
+    .my-soundlegend .soundlegend-title {
+    text-align: left;
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 90%;
+    }
+
+
+  .my-soundlegend .soundlegend-scale ul {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    }
+  .my-soundlegend .soundlegend-scale ul li {
+    display: block;
+    float: left;
+    width: 50px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-size: 80%;
+    list-style: none;
+    }
+  .my-soundlegend ul.soundlegend-labels li span {
+    display: block;
+    float: left;
+    width: 40px;
+    }
+    .my-soundlegend ul.soundlegend-labels li: hover span {color:black
+    display: block;
+    float: left;
+    width: 40px;
+    }
+   
+  #popup_this {
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    text-align:justify;
+    margin-top: 10px;
+    margin-left: -100px;
+    position: fixed;
+    background: #fff;
+    padding: 10px;
+}
+.b-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    color: #A9A9A9;
+    background: #fff;
+    padding: 1px 1px;
+    
+    
+  
+     
+
+</style>
+  </head>
+
+  <body>
+  <div id="popup_this">
+    <span class="button b-close">
+        <span>x</span>
+    </span>
+    <h3><b>Καλώς ήρθατε στον Οπτικοακουστικό Άτλαντα Πυρκαγιών!</b></h3>
+    <h5>Λίγα Λόγια </h5>
+   <h4> Ο χάρτης που συμπεριλαμβάνεται στην σελίδα δημιουργήθηκε στα πλαίσια εκπόνησης της μεταπτυχιακής εργασίας με τίτλο "Audiovisual Fire Atlas: Διαδικτυακή χαρτογραφική εφαρμογή για την απεικόνιση διαχρονικών δεδομένων εκδήλωσης πυρκαγιών κάνοντας χρήση της μεθόδου ηχοποίησης δεδομένων", για το μεταπτυχιακό πρόγραμμα της Γεωπληροφορικής, του τμήματος Αγρονόμων & Τοπογράφων Μηχανικών του Ε.Μ.Π. Η εργασία εντάσσεται σε ένα ευρύτερο πλαίσιο έρευνας για την χρήση του ήχου σε σύγχρονους διαδραστικούς - διαδικτυακούς χάρτες και συγκεκριμένα αφορά στη δημιουργία χάρτη ηχοποιώντας την παράμετρο της διάρκειας εκδήλωσης μιας πυρκαγιάς, σε μια προσπάθεια εξερεύνησης του φαινομένου χωρίς οπτική υπερφόρτωση του χρήστη.</h4>
+ <h5>Τρόπος λειτουργίας</h5>
+  <h4>  Μόλις ο κέρσορας φτάσει πάνω από ένα σύμβολο ένδειξης της θέσης εκδήλωσης της πυκαγιάς αναπαράγεται ήχος συγκεκριμένης οξύτητας που αντιστοιχεί στην κατηγορία χρονικής περιόδου (σε ημέρες) εκδήλωσης της πυρκαγιάς. Οι αναπαραγώμενοι ήχοι έχουν συχνότητα 360Ηz, 400Hz, 440Hz, 480Hz και 520Hz αντίστοιχα με την κατηγορία τάξης στην οποία ανήκει η εν λόγω πυρκαγιά. Ο ήχος που έχει συχνότητα 520Ηz είναι οξύτερος από αυτόν που έχει συχνότητα 360Ηz. Προκειμένου η εφαρμογή να δουλέψει σωστά ενδείκνυται να μην γίνονται γρήγορες εναλλαγές ανάμεσα στα σύμβολα. </h4>
+</div>
+
+    <div id="map"></div>
+   <script>
+var teste1 = new Audio();
+var teste2 = new Audio();
+var teste3 = new Audio();
+var teste4 = new Audio();
+var teste5 = new Audio();
+
+
+
+
+
+</script>
+    <div id="console_pm">
+      <h1> Evaluation of Audiovisual Fire Atlas - Pitch</h1>
+      <h2> In this map the sound parameter is the highness or lowness (frequency) of a sound. </h2>
+      <div class="session2"></div>
+      <div class="source">
+      </div>
+
+<div class='my-soundlegend'>
+
+<div class='soundlegend-title'><h2>Duration (days)</h2> 
+ </div>  
+<div class='soundlegend-scale'>
+  <ul class='soundlegend-labels' >
+    <li><span style='background:#FFFFFF;hover span{ color:red}; border: 1px solid grey;height: 10px;'onmouseover="teste1.play()"></span><=10</li>
+    <li><span style='background:#FFFFFF; border: 1px solid grey;height: 13px;'onmouseover="teste2.play()"></span><=20</li>
+    <li><span style='background:#FFFFFF; border: 1px solid grey;height: 16px;'onmouseover="teste3.play()"></span><=30</li>
+    <li><span style='background:#FFFFFF; border: 1px solid grey;height: 19px;'onmouseover="teste4.play()"></span><=40</li>
+     <li><span style='background:#FFFFFF; border: 1px solid grey;height: 21px;'onmouseover="teste5.play()"></span><=130</li>
+  </ul>
+</div>
+</div> 
+  
+
+      <div class="source"> <p>
+         <h2>  Data source:
+          <a href="http://www.globalfiredata.org/fireatlas.html"
+            >Global Fire Atlas</a
+          ></h2>
+        </p>
+      </div><h2>
+      Map authored: Aikaterini G. Foteinou</h2>
+    </div>
+      <script src="https://d3js.org/d3.v4.js"></script>
+      >
+
+    <script>
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiZm90ZWlub3UiLCJhIjoiY2pvMnNtNnA2MHB1ZjN0cnBxdnZxcDdibyJ9.SlBgkdnqkyt8tyfVE2DM5g"; // replace this with your access token
+      var map = new mapboxgl.Map({
+        container: "map", // Specify the container ID
+        style: "mapbox://styles/foteinou/cknecpx472zyu17qjekhbm4ht", // replace this with your style URL
+        center: [-18, 20], // Specify the starting position [lng, lat]
+        maxZoom: 9, //Was: 18,
+        minZoom: 1.2
+      });
+
+   
+
+     
+      map.on("load", function() {
+        map.addLayer({
+          id: "pitchtest-4zzjz8",
+          type: "circle",
+          source: {
+            type: "vector",
+            url: "mapbox://foteinou.bmlldff4"
+          },
+          "source-layer": "pitchtest-4zzjz8",
+          paint: {
+            "circle-radius": 
+           7,
+           
+  
+             'circle-color': " #ce2029",
+            'circle-stroke-color': 'white',
+            'circle-stroke-width': 0.5,
+            "circle-opacity": 1
+          },
+     
+        });
+
+
+      });
+
+      // Add zoom and rotation controls to the map.
+      map.addControl(new mapboxgl.NavigationControl());
+
+      
+ 
+
+      map.on("mouseenter", "pitchtest-4zzjz8", function(e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = "pointer";
+  
+        if (e.features[0].properties.duration<=10){
+          loadContent(1);
+        }
+        else if (e.features[0].properties.duration<=20){
+          loadContent(2);
+        }
+         else if (e.features[0].properties.duration<=30){
+          loadContent(3);
+        }
+         else if (e.features[0].properties.duration<=40){
+          loadContent(4);
+        }
+        else if (e.features[0].properties.duration<=131){
+          loadContent(5);
+        }
+      
+        
+  
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description =
+          "<b>Burned Area: </b>" +
+          e.features[0].properties.size +
+          " km2" +
+          "<p>" +
+          "<b>Start date: </b>" +
+          e.features[0].properties.start_date +
+          "<p>" +
+          "<b>End date: </b>" +
+          e.features[0].properties.end_date +
+          "<p>" +
+          "<b>Duration: </b>" +
+          e.features[0].properties.duration +
+          " days" +
+          "<p>" +
+          "<b>Speed: </b>" +
+          e.features[0].properties.speed +
+          " km per day" +
+          "<p>" +
+          "<b>Expansion: </b>" +
+          e.features[0].properties.expansion +
+          " km2 per day" +
+          "<p>" +
+          "<b>Landcover type: </b>" +
+          e.features[0].properties.landcover_    
+          ;
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup
+          .setLngLat(coordinates)
+          .setHTML(description)
+          .addTo(map);
+      });
+
+      map.on("mouseleave", "pitchtest-4zzjz8", function() {
+        map.getCanvas().style.cursor = "";
+        popup.remove();
+      });
+      
+// 40000 legend
+var height = 92
+var width = 200
+var svg = d3.select("#my_dataviz40000")
+  .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+
+// The scale you use for bubble size
+var size = d3.scaleSqrt()
+  .domain([1, 40000])  // What's in the data, let's say it is percentage
+  .range([1, 40])  // Size in pixel
+
+// Add legend: circles
+var valuesToShow = [40025.7]
+var xCircle = 50
+var xLabel = 110
+var yCircle = 90
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("circle")
+    .attr("cx", xCircle)
+    .attr("cy", function(d){ return yCircle - size(d) } )
+    .attr("r", function(d){ return size(d) })
+    .style("fill", "none")
+    .attr("stroke", "black")
+
+// Add legend: segments
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("line")
+    .attr('x1', function(d){ return xCircle + size(d) } )
+    .attr('x2', xLabel)
+    .attr('y1', function(d){ return yCircle - size(d) } )
+    .attr('y2', function(d){ return yCircle - size(d) } )
+    .attr('stroke', 'black')
+    .style('stroke-dasharray', ('2,2'))
+
+// Add legend: labels
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("text")
+    .attr('x', xLabel)
+    .attr('y', function(d){ return yCircle - size(d) } )
+    .text( function(d){ return d } )
+    .style("font-size", 13)
+    .attr('alignment-baseline', 'middle')
+    
+    // 20000 legend
+var height = 52
+var width = 150
+var svg = d3.select("#my_dataviz20000")
+  .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+
+// The scale you use for bubble size
+var size = d3.scaleSqrt()
+  .domain([1, 20000])  // What's in the data, let's say it is percentage
+  .range([1, 22])  // Size in pixel
+
+// Add legend: circles
+var valuesToShow = [20000]
+var xCircle = 50
+var xLabel = 110
+var yCircle = 50
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("circle")
+    .attr("cx", xCircle)
+    .attr("cy", function(d){ return yCircle - size(d) } )
+    .attr("r", function(d){ return size(d) })
+    .style("fill", "none")
+    .attr("stroke", "black")
+
+// Add legend: segments
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("line")
+    .attr('x1', function(d){ return xCircle + size(d) } )
+    .attr('x2', xLabel)
+    .attr('y1', function(d){ return yCircle - size(d) } )
+    .attr('y2', function(d){ return yCircle - size(d) } )
+    .attr('stroke', 'black')
+    .style('stroke-dasharray', ('2,2'))
+
+// Add legend: labels
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("text")
+    .attr('x', xLabel)
+    .attr('y', function(d){ return yCircle - size(d) } )
+    .text( function(d){ return d } )
+    .style("font-size", 13)
+    .attr('alignment-baseline', 'middle')
+    
+     // 5000 legend
+var height = 30
+var width = 200
+var svg = d3.select("#my_dataviz20000")
+  .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+
+// The scale you use for bubble size
+var size = d3.scaleSqrt()
+  .domain([1, 5000])  // What's in the data, let's say it is percentage
+  .range([1, 7])  // Size in pixel
+
+// Add legend: circles
+var valuesToShow = [5000]
+var xCircle = 50
+var xLabel = 110
+var yCircle = 25
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("circle")
+    .attr("cx", xCircle)
+    .attr("cy", function(d){ return yCircle - size(d) } )
+    .attr("r", function(d){ return size(d) })
+    .style("fill", "none")
+    .attr("stroke", "black")
+
+// Add legend: segments
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("line")
+    .attr('x1', function(d){ return xCircle + size(d) } )
+    .attr('x2', xLabel)
+    .attr('y1', function(d){ return yCircle - size(d) } )
+    .attr('y2', function(d){ return yCircle - size(d) } )
+    .attr('stroke', 'black')
+    .style('stroke-dasharray', ('2,2'))
+
+// Add legend: labels
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("text")
+    .attr('x', xLabel)
+    .attr('y', function(d){ return yCircle - size(d) } )
+    .text( function(d){ return d } )
+    .style("font-size", 14)
+    .attr('alignment-baseline', 'middle')
+    
+       // 100 legend
+var height = 30
+var width = 200
+var svg = d3.select("#my_dataviz20000")
+  .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+
+// The scale you use for bubble size
+var size = d3.scaleSqrt()
+  .domain([1, 100])  // What's in the data, let's say it is percentage
+  .range([1, 2.5])  // Size in pixel
+
+// Add legend: circles
+var valuesToShow = [100.11]
+var xCircle = 50
+var xLabel = 110
+var yCircle = 15
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("circle")
+    .attr("cx", xCircle)
+    .attr("cy", function(d){ return yCircle - size(d) } )
+    .attr("r", function(d){ return size(d) })
+    .style("fill", "none")
+    .attr("stroke", "black")
+
+// Add legend: segments
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("line")
+    .attr('x1', function(d){ return xCircle + size(d) } )
+    .attr('x2', xLabel)
+    .attr('y1', function(d){ return yCircle - size(d) } )
+    .attr('y2', function(d){ return yCircle - size(d) } )
+    .attr('stroke', 'black')
+    .style('stroke-dasharray', ('2,2'))
+
+// Add legend: labels
+svg
+  .selectAll("legend")
+  .data(valuesToShow)
+  .enter()
+  .append("text")
+    .attr('x', xLabel)
+    .attr('y', function(d){ return yCircle - size(d) } )
+    .text( function(d){ return d } )
+    .style("font-size", 13)
+    .attr('alignment-baseline', 'middle')
+ 
+        
+ 
+    
+    </script>
+  </body>
+</html>
