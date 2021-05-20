@@ -69,15 +69,15 @@ function loadContent(num){
   z-index: -1;
 }
 
-h1 {font-family:"Garamond", serif;
+h1 {font-family:"Times New Roman", serif;
   font-size: 20px;
-  line-height: 20px;
+  line-height: 22px;
   margin-bottom: 5px;
   padding: 5px;
 }
-h2 {font-family: "Garamond", serif;
-  font-size: 15px;
-  line-height: 14px;
+h2 {font-family: "Times New Roman", serif;
+  font-size: 14px;
+  line-height: 18px;
   margin-bottom: 1px;
   padding: 5px;
 }
@@ -114,7 +114,7 @@ h5 {font-family: "Times New Roman", serif;
 }
 #console_pm {
   position: absolute;
-  height:270px;
+  height:300px;
   width: 250px;
   left: 0.2%;
   top: 2px;
@@ -233,9 +233,7 @@ h5 {font-family: "Times New Roman", serif;
         <span>x</span>
     </span>
     <h3><b>Καλώς ήρθατε στον Οπτικοακουστικό Άτλαντα Πυρκαγιών!</b></h3>
-    <h5>Λίγα Λόγια </h5>
-   <h4> Ο χάρτης που συμπεριλαμβάνεται στην σελίδα δημιουργήθηκε στα πλαίσια εκπόνησης της μεταπτυχιακής εργασίας με τίτλο "Audiovisual Fire Atlas: Διαδικτυακή χαρτογραφική εφαρμογή για την απεικόνιση διαχρονικών δεδομένων εκδήλωσης πυρκαγιών κάνοντας χρήση της μεθόδου ηχοποίησης δεδομένων", για το μεταπτυχιακό πρόγραμμα της Γεωπληροφορικής, του τμήματος Αγρονόμων & Τοπογράφων Μηχανικών του Ε.Μ.Π. Η εργασία εντάσσεται σε ένα ευρύτερο πλαίσιο έρευνας για την χρήση του ήχου σε σύγχρονους διαδραστικούς - διαδικτυακούς χάρτες και συγκεκριμένα αφορά στη δημιουργία χάρτη ηχοποιώντας την παράμετρο της διάρκειας εκδήλωσης μιας πυρκαγιάς, σε μια προσπάθεια εξερεύνησης του φαινομένου χωρίς οπτική υπερφόρτωση του χρήστη.</h4>
- <h5>Τρόπος λειτουργίας</h5>
+    <h5>Τρόπος λειτουργίας</h5>
   <h4>  Μόλις ο κέρσορας φτάσει πάνω από ένα σύμβολο ένδειξης της θέσης εκδήλωσης της πυκαγιάς αναπαράγεται ήχος συγκεκριμένης οξύτητας που αντιστοιχεί στην κατηγορία χρονικής περιόδου (σε ημέρες) εκδήλωσης της πυρκαγιάς. Οι αναπαραγώμενοι ήχοι έχουν συχνότητα 360Ηz, 400Hz, 440Hz, 480Hz και 520Hz αντίστοιχα με την κατηγορία τάξης στην οποία ανήκει η εν λόγω πυρκαγιά. Ο ήχος που έχει συχνότητα 520Ηz είναι οξύτερος από αυτόν που έχει συχνότητα 360Ηz. Προκειμένου η εφαρμογή να δουλέψει σωστά ενδείκνυται να μην γίνονται γρήγορες εναλλαγές ανάμεσα στα σύμβολα. </h4>
 </div>
 
@@ -253,15 +251,15 @@ var teste5 = new Audio();
 
 </script>
     <div id="console_pm">
-      <h1> Evaluation of Audiovisual Fire Atlas - Pitch</h1>
-      <h2> In this map the sound parameter is the highness or lowness (frequency) of a sound. </h2>
+      <h1> Αξιολόγηση της ηχητικής μεταβλητής του τονικού ύψους (οξύτητας)</h1>
+      <h2> Στον χάρτη αυτό η ηχητική μεταβλητή είναι το τονικό ύψος (οξύτητα) του ήχου. </h2>
       <div class="session2"></div>
       <div class="source">
       </div>
 
 <div class='my-soundlegend'>
 
-<div class='soundlegend-title'><h2>Duration (days)</h2> 
+<div class='soundlegend-title'><h2>D Διάρκεια (ημέρες)</h2> 
  </div>  
 <div class='soundlegend-scale'>
   <ul class='soundlegend-labels' >
@@ -276,13 +274,13 @@ var teste5 = new Audio();
   
 
       <div class="source"> <p>
-         <h2>  Data source:
+         <h2>  Πηγή Δεδομένων:
           <a href="http://www.globalfiredata.org/fireatlas.html"
             >Global Fire Atlas</a
           ></h2>
         </p>
       </div><h2>
-      Map authored: Aikaterini G. Foteinou</h2>
+     Συντάκτης: Αικατερίνη Γ. Φωτεινού</h2>
     </div>
       <script src="https://d3js.org/d3.v4.js"></script>
       >
@@ -290,12 +288,17 @@ var teste5 = new Audio();
     <script>
       mapboxgl.accessToken =
         "pk.eyJ1IjoiZm90ZWlub3UiLCJhIjoiY2pvMnNtNnA2MHB1ZjN0cnBxdnZxcDdibyJ9.SlBgkdnqkyt8tyfVE2DM5g"; // replace this with your access token
+      var bounds = [
+[-252, -80], // Southwest coordinates
+[250, 80] // Northeast coordinates
+];
       var map = new mapboxgl.Map({
         container: "map", // Specify the container ID
         style: "mapbox://styles/foteinou/cknecpx472zyu17qjekhbm4ht", // replace this with your style URL
-        center: [-18, 20], // Specify the starting position [lng, lat]
+        center: [-20, 20], // Specify the starting position [lng, lat]
         maxZoom: 9, //Was: 18,
-        minZoom: 1.2
+        minZoom: 1.2,
+         maxBounds: bounds // Sets bounds as max
       });
 
    
