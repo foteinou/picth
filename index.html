@@ -305,7 +305,7 @@ var teste4 = new Audio();
           type: "circle",
           source: {
             type: "vector",
-            url: "mapbox://foteinou.bmlldff4"
+            url: "mapbox://foteinou.ckppbiq4z04wo28lqwftbdczn-4ar4u"
           },
           "source-layer": "pitch",
           paint: {
@@ -334,21 +334,19 @@ var teste4 = new Audio();
         // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = "pointer";
   
-        if (e.features[0].properties.duration<=10){
+        if (e.features[0].properties.duration<=15){
           loadContent(1);
         }
-        else if (e.features[0].properties.duration<=20){
+        else if (e.features[0].properties.duration<=30){
           loadContent(2);
         }
-         else if (e.features[0].properties.duration<=30){
+         else if (e.features[0].properties.duration<=60){
           loadContent(3);
         }
-         else if (e.features[0].properties.duration<=40){
+         else if (e.features[0].properties.duration<=130){
           loadContent(4);
         }
-        else if (e.features[0].properties.duration<=131){
-          loadContent(5);
-        }
+       
       
         
   
