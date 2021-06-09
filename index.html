@@ -25,17 +25,17 @@ var bleep = new Audio();
   var bleep2 = new Audio();
   var bleep3 = new Audio();
   var bleep4 = new Audio();
-  var bleep5 = new Audio();
+ 
   bleep.src = "360.mp3";
   bleep2.src = "400.mp3";
   bleep3.src = "440.mp3";
   bleep4.src = "480.mp3";
-  bleep5.src = "520.mp3";
+ 
   bleep.load();
   bleep2.load();
   bleep3.load();
   bleep4.load();
-  bleep5.load();
+ 
   
 function loadContent(num){
    if (num==1){
@@ -49,9 +49,6 @@ function loadContent(num){
         }
         else if (num==4){
           bleep4.play(); // Play button sound now
-        }
-   else if (num==5){
-          bleep5.play(); // Play button sound now
         }
 }
  
@@ -243,7 +240,6 @@ var teste1 = new Audio();
 var teste2 = new Audio();
 var teste3 = new Audio();
 var teste4 = new Audio();
-var teste5 = new Audio();
 
 
 
@@ -263,10 +259,9 @@ var teste5 = new Audio();
  </div>  
 <div class='soundlegend-scale'>
   <ul class='soundlegend-labels' >
-    <li><span style='background:#FFFFFF;hover span{ color:red}; border: 1px solid grey;height: 10px;'onmouseover="teste1.play()"></span><=10</li>
-    <li><span style='background:#FFFFFF; border: 1px solid grey;height: 13px;'onmouseover="teste2.play()"></span><=20</li>
+    <li><span style='background:#FFFFFF; border: 1px solid grey;height: 13px;'onmouseover="teste2.play()"></span><=15</li>
     <li><span style='background:#FFFFFF; border: 1px solid grey;height: 16px;'onmouseover="teste3.play()"></span><=30</li>
-    <li><span style='background:#FFFFFF; border: 1px solid grey;height: 19px;'onmouseover="teste4.play()"></span><=40</li>
+    <li><span style='background:#FFFFFF; border: 1px solid grey;height: 19px;'onmouseover="teste4.play()"></span><=60</li>
      <li><span style='background:#FFFFFF; border: 1px solid grey;height: 21px;'onmouseover="teste5.play()"></span><=130</li>
   </ul>
 </div>
@@ -306,13 +301,13 @@ var teste5 = new Audio();
      
       map.on("load", function() {
         map.addLayer({
-          id: "pitchtest-4zzjz8",
+          id: "pitch",
           type: "circle",
           source: {
             type: "vector",
             url: "mapbox://foteinou.bmlldff4"
           },
-          "source-layer": "pitchtest-4zzjz8",
+          "source-layer": "pitch",
           paint: {
             "circle-radius": 
            7,
@@ -335,7 +330,7 @@ var teste5 = new Audio();
       
  
 
-      map.on("mouseenter", "pitchtest-4zzjz8", function(e) {
+      map.on("mouseenter", "pitch", function(e) {
         // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = "pointer";
   
@@ -400,7 +395,7 @@ var teste5 = new Audio();
           .addTo(map);
       });
 
-      map.on("mouseleave", "pitchtest-4zzjz8", function() {
+      map.on("mouseleave", "pitch", function() {
         map.getCanvas().style.cursor = "";
         popup.remove();
       });
